@@ -16,7 +16,7 @@ namespace ProjectEulerTester
             Constant Fixed = new Constant();
 
             DateTime time;
-
+            
             time = DateTime.Now;
             Console.WriteLine("Problem 1: {0}", Ejercicio.Problem1(1000));
             Console.WriteLine("Time: {0}", (DateTime.Now - time).Milliseconds);
@@ -64,6 +64,11 @@ namespace ProjectEulerTester
             time = DateTime.Now;
             Console.WriteLine("Problem 12: {0}", Ejercicio.Problem12(500));
             Console.WriteLine("Time: {0}", (DateTime.Now - time).Milliseconds);
+            
+            time = DateTime.Now;
+            Console.WriteLine("Problem 13: {0}", Ejercicio.Problem13(Fixed.Problem13Number));
+            Console.WriteLine("Time: {0}", (DateTime.Now - time).Milliseconds);
+
 
             Console.ReadKey();
         }

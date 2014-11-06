@@ -153,6 +153,92 @@ namespace ProjectEuler
             return Divisors*2;
         }
 
+        string GetSum(string Sum,string Digit)
+        {
+            int count = 0;
+            int sum = 0;
+            string returnValue = "";
+            string returnValueHelp = "";
+            string rest = "0";
+            foreach (char SumDigit in Sum.Reverse())
+            {
+                count++;
+
+                if (count == 1)
+                {
+                    sum = int.Parse(SumDigit.ToString()) + int.Parse(Digit);
+                    returnValue = returnValue + (sum % 10).ToString();
+                    rest = (sum / 10).ToString();
+                }
+                else if (rest != "0")
+                {
+                    sum = int.Parse(SumDigit.ToString()) + int.Parse(rest);
+                    returnValue = returnValue + (sum % 10).ToString();
+                    rest = (sum / 10).ToString();
+                }
+                else
+                {
+                    returnValue = returnValue + SumDigit.ToString();
+                }
+            }
+
+            if (rest != "0")
+                returnValue = returnValue + rest;
+
+            foreach (char item in returnValue.Reverse())
+            {
+                if (returnValueHelp == "")
+                    returnValueHelp = (int.Parse(item.ToString()) * 10).ToString();
+                else
+                    returnValueHelp = ((int.Parse(returnValueHelp) + int.Parse(item.ToString())) * 10).ToString();
+            }
+
+            return returnValueHelp.Substring(0,returnValueHelp.Length - 1);
+        }
+
+        string GetSum2Numbers(string N1, string N2)
+        {
+            int max = N1.Length;
+            if (N2.Length > max)
+                max = N2.Length;
+
+            string Digit = "";
+            int sum = 0;
+            int Rest = 0;
+            int num = 0;
+            for (int i = 1; i <= max; i++)
+            {
+                int num1 = 0;
+                int num2 = 0;
+                if (N1.Length >= i)
+                    num1 = int.Parse(N1[N1.Length-i].ToString());
+                if (N2.Length >= i)
+                    num2 = int.Parse(N2[N2.Length-i].ToString());
+
+                sum = num1 + num2 + Rest;
+                num = (sum % 10);
+                Rest = (sum / 10);
+
+                Digit += num.ToString();
+
+            }
+            if (Rest != 0)
+                Digit += Rest.ToString();
+            return RevertString(Digit.ToString());
+        }
+        private string RevertString(string Num)
+        {
+            string ret = "";
+            for (int i = 0; i < Num.Length; i++)
+			{
+                ret = Num[i] + ret;
+			}
+            return ret;
+	{
+		 
+	}
+        }
+
         public Int64 Problem1(Int64 topNumber)
         {
             Int64 sum=0;
@@ -323,6 +409,19 @@ namespace ProjectEuler
                     return triangleNumbers.LastOrDefault();
                 ++count;
             }
+        }
+
+        public string Problem13(string [] BigNumber)
+        {
+            string sum = "0";
+            int count = 0;
+
+            for (int i = 0; i < BigNumber.Count(); i++)
+			{
+                sum = GetSum2Numbers(sum, BigNumber[i].ToString());
+			}
+
+            return sum.Substring(0, 10);
         }
     }
 }
